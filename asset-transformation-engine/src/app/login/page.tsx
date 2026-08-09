@@ -1,0 +1,2 @@
+import { LoginForm } from "@/components/login-form"; import { supabaseConfigured } from "@/lib/supabase/config";
+export default function Login(){return <><div className="eyebrow">Secure access</div><h1>Sign in</h1><p className="lede">Research, review, and ingestion areas require an authenticated account when Supabase is configured.</p>{supabaseConfigured()?<LoginForm/>:<div className="alert">Authentication is not configured in this deployment. Add the Supabase environment variables described in <span className="mono">.env.example</span>.</div>}</>}

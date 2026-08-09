@@ -1,0 +1,1 @@
+export function logError(event:string,error:unknown,context:Record<string,unknown>={}){const payload={level:"error",event,message:error instanceof Error?error.message:String(error),context,timestamp:new Date().toISOString()};console.error(JSON.stringify(payload))}
