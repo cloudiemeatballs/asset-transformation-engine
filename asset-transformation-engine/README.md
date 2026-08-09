@@ -30,4 +30,9 @@ The Research Workbench uses synthetic fixture records through the production-sha
 
 Copy `.env.example` to `.env.local`, create separate staging and production Supabase projects, and apply the checked-in migrations with the Supabase CLI. When Supabase variables are absent, the app intentionally remains in read-only illustrative demo mode. When configured, protected research areas require authentication, opportunity reads use database projections, and proposal review uses the transactional `review_proposal` database function.
 
-Operational deployment, monitoring, backup, and pilot requirements are in `docs/PRODUCTION_RUNBOOK.md`.
+Operational deployment, monitoring, backup, incident response, and pilot requirements are in:
+
+- `docs/PRODUCTION_RUNBOOK.md`
+- `docs/BACKUP_RESTORE_DRILL.md`
+- `docs/INCIDENT_RESPONSE.md`
+- `docs/SCIENTIFIC_PILOT_CHECKLIST.md`

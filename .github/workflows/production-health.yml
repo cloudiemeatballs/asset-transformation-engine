@@ -1,0 +1,39 @@
+name: Production health check
+
+on:
+  schedule:
+    # Avoid the top of the hour, when scheduled GitHub Actions are most delayed.
+    - cron: "17,47 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-health
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify application and database health
+        env:
+          HEALTH_URL: https://asset-transformation-engine-lac.vercel.app/api/health
+        shell: bash
+        run: |
+          set -euo pipefail
+          response="$(curl --fail --silent --show-error --retry 3 --retry-all-errors --max-time 15 "$HEALTH_URL")"
+          HEALTH_RESPONSE="$response" node - <<'NODE'
+          const health = JSON.parse(process.env.HEALTH_RESPONSE);
+          const ready = health.status === "ready"
+            && health.databaseConfigured === true
+            && health.databaseReachable === true
+            && health.schemaVersion === "0007";
+          if (!ready) {
+            console.error("Production health check failed:", health);
+            process.exit(1);
+          }
+          console.log(`Healthy at ${health.checkedAt}; database latency ${health.latencyMs} ms.`);
+          NODE
