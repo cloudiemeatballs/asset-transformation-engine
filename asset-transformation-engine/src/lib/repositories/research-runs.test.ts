@@ -1,0 +1,2 @@
+import {describe,expect,it} from "vitest";import {summarizeTaskCounts} from "./research-runs";
+describe("research run summaries",()=>{it("counts complete and queued tasks by run",()=>{const result=summarizeTaskCounts([{research_run_id:"a",status:"complete"},{research_run_id:"a",status:"queued"},{research_run_id:"b",status:"queued"}]);expect(result.get("a")).toEqual({totalTasks:2,completeTasks:1,queuedTasks:1});expect(result.get("b")?.queuedTasks).toBe(1)})});
