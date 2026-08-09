@@ -1,0 +1,2 @@
+import {describe,expect,it} from "vitest";import {firstPubMedQuery} from "./pubmed-execution";
+describe("PubMed task execution",()=>{it("selects the first usable planned query",()=>expect(firstPubMedQuery({queries:["  ","TGFBR1 pulmonary fibrosis"]})).toBe("TGFBR1 pulmonary fibrosis"));it("rejects tasks without a usable query",()=>expect(()=>firstPubMedQuery({queries:[]})).toThrow("usable PubMed query"))});
