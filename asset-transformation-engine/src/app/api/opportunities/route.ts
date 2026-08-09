@@ -1,2 +1,2 @@
-import { opportunities } from "@/data/seed"; import { NextResponse } from "next/server";
-export async function GET(){return NextResponse.json({data:opportunities,meta:{illustrative:true,count:opportunities.length}})}
+import { opportunityRepository } from "@/lib/repositories/opportunities"; import { NextResponse } from "next/server";
+export async function GET(){try{const data=await opportunityRepository().list();return NextResponse.json({data,meta:{illustrative:!process.env.NEXT_PUBLIC_SUPABASE_URL,count:data.length}})}catch(e){return NextResponse.json({error:e instanceof Error?e.message:"Unable to load opportunities"},{status:500})}}

@@ -25,3 +25,9 @@ Open `http://localhost:3000`. Verification: `npm test`, `npm run typecheck`, `np
 The SQL schema is ready for Supabase/PostgreSQL. The zero-configuration local mode deliberately uses the same typed DTO repository boundary so the MVP remains runnable without external infrastructure; replacing that adapter with a database-backed implementation does not change domain logic or UI contracts.
 
 The Research Workbench uses synthetic fixture records through the production-shaped `ScientificDataAdapter`; none are represented as factual biomedical findings. Agents submit review proposals and cannot write authoritative scores or bypass the existing gates.
+
+## Production setup
+
+Copy `.env.example` to `.env.local`, create separate staging and production Supabase projects, and apply the checked-in migrations with the Supabase CLI. When Supabase variables are absent, the app intentionally remains in read-only illustrative demo mode. When configured, protected research areas require authentication, opportunity reads use database projections, and proposal review uses the transactional `review_proposal` database function.
+
+Operational deployment, monitoring, backup, and pilot requirements are in `docs/PRODUCTION_RUNBOOK.md`.

@@ -1,0 +1,2 @@
+import { NextResponse } from "next/server"; import { supabaseConfigured } from "@/lib/supabase/config";
+export async function GET(){const databaseConfigured=supabaseConfigured();return NextResponse.json({status:databaseConfigured?"ready":"demo",application:"asset-transformation-engine",databaseConfigured,authenticationRequired:databaseConfigured,checkedAt:new Date().toISOString()},{status:200,headers:{"cache-control":"no-store"}})}

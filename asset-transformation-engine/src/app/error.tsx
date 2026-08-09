@@ -1,0 +1,2 @@
+"use client"; import { useEffect } from "react";
+export default function ErrorBoundary({error,reset}:{error:Error&{digest?:string};reset:()=>void}){useEffect(()=>{console.error("Application route error",error)},[error]);return <div className="panel"><div className="eyebrow">Application error</div><h1>We could not load this section.</h1><p className="lede">The error has been recorded. Retry once; if it persists, share the time and page address with the project administrator.</p><button className="action-button" onClick={reset}>Try again</button></div>}
